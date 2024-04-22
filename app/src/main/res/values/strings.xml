@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KansTaanysh</string>
+    <string name="open_nav">Ачуу</string>
+    <string name="close_nav">Жабуу</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
