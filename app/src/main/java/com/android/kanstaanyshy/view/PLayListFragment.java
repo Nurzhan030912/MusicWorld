@@ -1,11 +1,12 @@
 package com.android.kanstaanyshy.view;
 
 import android.annotation.SuppressLint;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,17 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.kanstaanyshy.R;
-import com.android.kanstaanyshy.view.Adapter.PlayListAdapter;
-import com.android.kanstaanyshy.view.Adapter.RecomendationAdapter;
+import com.android.kanstaanyshy.service.FirebaseServices;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PLayList extends Fragment {
+public class PLayListFragment extends Fragment {
     private SearchView searchMusic;
     private RecyclerView recyclerView;
-    private PlayListAdapter playListAdapter;
-    private List<String> content = new ArrayList<>();
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,32 +35,32 @@ public class PLayList extends Fragment {
 
         searchMusic = view.findViewById(R.id.searchMusicP);
         searchMusic.clearFocus();
-
-        adding();
-        playListAdapter = new PlayListAdapter(getContext(), content, null);
         recyclerView = view.findViewById(R.id.recyclerP);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(playListAdapter);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build()
+        );
 
-
-        searchMusic.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+        Bundle args = getArguments();
+        if (args != null) {
+            String stringData = args.getString("key");
+            if (stringData != null) {
+                FirebaseServices firebaseServices = new FirebaseServices("Нац");
+                firebaseServices.readFromFirebasePlaylist(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, stringData, searchMusic);
             }
+        }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                System.out.println(newText);
-                return false;
-            }
-        });
         return view;
     }
 
-    private void adding() {
-        for (int i = 0; i < 100; i++) {
-            content.add("N" + i);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 }

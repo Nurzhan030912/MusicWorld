@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "443258952838",
+    "firebase_url": "https://kanstaanysh-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kanstaanysh",
+    "storage_bucket": "kanstaanysh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443258952838:android:ff269c6e59ec980a8c0507",
+        "android_client_info": {
+          "package_name": "com.android.kanstaanyshy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDAGTGHf-RhJ2bD5nEax8XC-0FmeV6BBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

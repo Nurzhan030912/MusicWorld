@@ -28,7 +28,7 @@ public class LyricsAdapter extends RecyclerView.Adapter<LyricsAdapter.LyricsAdap
     @NonNull
     @Override
     public LyricsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LyricsAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.like_list, parent, false));
+        return new LyricsAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.lyrics_list, parent, false));
     }
 
     @Override

@@ -11,25 +11,16 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="35dp"
         android:src="@drawable/baseline_play_arrow_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minimizaSong" />
+        app:layout_constraintTop_toBottomOf="@+id/shareSongLyrics" />
+
 
     <ImageView
-        android:id="@+id/minimizaSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/baseline_minimize_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/menuSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -48,7 +39,7 @@
         android:text="TextView"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/likeSongLyrics"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/songsImage" />
 
@@ -64,14 +55,15 @@
         app:layout_constraintTop_toBottomOf="@+id/nameSong" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/likeSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/heart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/songsImage" />
+        app:layout_constraintTop_toBottomOf="@+id/songsImage"
+        app:tint="@color/green" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -96,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/previousSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -106,19 +98,19 @@
         app:layout_constraintTop_toBottomOf="@+id/musicTime" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/playSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/baseline_play_arrow_24"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintEnd_toStartOf="@+id/listSongLyrics"
+        app:layout_constraintStart_toEndOf="@+id/replySongLyrics"
         app:layout_constraintTop_toBottomOf="@+id/musicTime" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/nextSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -128,38 +120,39 @@
         app:layout_constraintTop_toBottomOf="@+id/musicTime" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/replySongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/baseline_repeat_24"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/playSongLyrics"
+        app:layout_constraintStart_toEndOf="@+id/previousSongLyrics"
         app:layout_constraintTop_toBottomOf="@+id/musicTime" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/listSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/baseline_play_lesson_24"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintEnd_toStartOf="@+id/nextSongLyrics"
+        app:layout_constraintStart_toEndOf="@+id/playSongLyrics"
         app:layout_constraintTop_toBottomOf="@+id/musicTime" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/shareSongLyrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/baseline_share_24"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/menuSongLyrics"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
+        android:id="@+id/recyclerLyrics"
         android:layout_width="0dp"
         android:layout_height="475dp"
         android:layout_marginStart="20dp"
@@ -167,6 +160,12 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/playSongLyrics" >
+
+        <TextView
+            android:id="@+id/lyricsMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
