@@ -81,7 +81,7 @@ public class PlayingMusics extends Fragment {
                 firebaseServices.findFromFirebase(stringData, nameSong, performer, musicTime, songsImage,
                         menuSongLyrics, likeSongLyrics, previousSongLyrics, playSongLyrics, nextSongLyrics,
                         replySongLyrics, listSongLyrics, shareSongLyrics, mediaPlayer, seekBar, lyricsMusic, getContext(),
-                        getActivity().getSupportFragmentManager().beginTransaction())
+                        getActivity().getSupportFragmentManager().beginTransaction(), view)
                 ;
             }
         }

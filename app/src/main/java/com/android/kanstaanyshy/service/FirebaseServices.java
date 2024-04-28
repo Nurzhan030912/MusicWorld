@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -23,6 +24,7 @@ import com.android.kanstaanyshy.MainActivity;
 import com.android.kanstaanyshy.R;
 import com.android.kanstaanyshy.entity.AdminValuesModel;
 import com.android.kanstaanyshy.entity.RatingModel;
+import com.android.kanstaanyshy.service.moduls.MusicPlayer;
 import com.android.kanstaanyshy.service.moduls.RemoveDuplicateList;
 import com.android.kanstaanyshy.service.moduls.SearchFilter;
 import com.android.kanstaanyshy.service.moduls.SpinnerSetValues;
@@ -36,7 +38,6 @@ import com.android.kanstaanyshy.view.Adapter.RecomendationAdapter;
 import com.android.kanstaanyshy.view.Adapter.VictorinaAdapter;
 import com.android.kanstaanyshy.view.PLayListFragment;
 import com.android.kanstaanyshy.view.PlayingMusics;
-import com.android.kanstaanyshy.view.RatingFragment;
 import com.android.kanstaanyshy.view.Recomendation;
 import com.android.kanstaanyshy.view.dialogPage.ConfirmDialogPage;
 import com.android.kanstaanyshy.view.dialogPage.PlayListDialog;
@@ -46,7 +47,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class FirebaseServices {
         myRef = database.getReference(path);
     }
 
-    public void readFromFirebasePlaylist(Context context, RecyclerView recyclerView, FragmentManager fragmentManagerReq, MediaPlayer mediaPlayer, String key, SearchView searchView) {
+    public void readFromFirebasePlaylist(Context context, RecyclerView recyclerView, FragmentManager fragmentManagerReq, MediaPlayer mediaPlayer, String key, SearchView searchView, View view) {
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -93,7 +93,7 @@ public class FirebaseServices {
                         adminValuesModels.add(adminValuesModel);
                 }
 
-                playListAdapter = new PlayListFragmentAdapter(context, adminValuesModels, null, mediaPlayer);
+                playListAdapter = new PlayListFragmentAdapter(context, adminValuesModels, null, mediaPlayer, view);
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(playListAdapter);
@@ -134,7 +134,7 @@ public class FirebaseServices {
         });
     }
 
-    public void readFromFirebaseRecomendation(Context context, RecyclerView recyclerView, FragmentManager supportFragmentManager, MediaPlayer mediaPlayer, SearchView searchView) {
+    public void readFromFirebaseRecomendation(Context context, RecyclerView recyclerView, FragmentManager supportFragmentManager, MediaPlayer mediaPlayer, SearchView searchView, View view) {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,7 +158,7 @@ public class FirebaseServices {
                     adminValuesModels.add(adminValuesModel);
                 }
 
-                recomendationAdapter = new RecomendationAdapter(context, adminValuesModels, null, mediaPlayer);
+                recomendationAdapter = new RecomendationAdapter(context, adminValuesModels, null, mediaPlayer, view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(recomendationAdapter);
                 recomendationAdapter.setOnItemClickListener(position -> {
@@ -197,7 +197,7 @@ public class FirebaseServices {
         });
     }
 
-    public void readFromFirebaseLikes(Context context, RecyclerView recyclerView, FragmentManager supportFragmentManager, MediaPlayer mediaPlayer, SearchView searchView) {
+    public void readFromFirebaseLikes(Context context, RecyclerView recyclerView, FragmentManager supportFragmentManager, MediaPlayer mediaPlayer, SearchView searchView, View view) {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -222,7 +222,7 @@ public class FirebaseServices {
                         adminValuesModels.add(adminValuesModel);
                 }
 
-                likeAdapter = new LikeAdapter(context, adminValuesModels, null, mediaPlayer);
+                likeAdapter = new LikeAdapter(context, adminValuesModels, null, mediaPlayer, view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(likeAdapter);
 
@@ -267,7 +267,7 @@ public class FirebaseServices {
                                  ImageView songsImage, ImageView menuSongLyrics, ImageView likeSongLyrics,
                                  ImageView previousSongLyrics, ImageView playSongLyrics, ImageView nextSongLyrics,
                                  ImageView replySongLyrics, ImageView listSongLyrics, ImageView shareSongLyrics,
-                                 MediaPlayer mediaPlayer, SeekBar seekBar, TextView lyricsMusic, Context context, FragmentTransaction fragmentTransaction) {
+                                 MediaPlayer mediaPlayer, SeekBar seekBar, TextView lyricsMusic, Context context, FragmentTransaction fragmentTransaction, View view) {
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -306,23 +306,10 @@ public class FirebaseServices {
                             fragmentTransaction.replace(R.id.fragment_container, new Recomendation()).commit();
                         });
 
-                        playSongLyrics.setOnClickListener(v -> {
+                        playSongLyrics.setOnClickListener(v -> MusicPlayer.playerMusic(mediaPlayer, adminValuesModels, playSongLyrics, stepSong,"", nameSong, performer, lyricsMusic));
 
-                            if (mediaPlayer.isPlaying()) {
-                                mediaPlayer.pause();
-                                playSongLyrics.setImageResource(R.drawable.baseline_play_arrow_24);
-                            } else {
-                                try {
-                                    playSongLyrics.setImageResource(R.drawable.baseline_pause_circle_24);
-                                    mediaPlayer.reset();
-                                    mediaPlayer.setDataSource(adminValuesModels.get(stepSong).getMusic());
-                                    mediaPlayer.prepare();
-                                    mediaPlayer.start();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
+                        nextSongLyrics.setOnClickListener(v -> MusicPlayer.playerMusic(mediaPlayer, adminValuesModels, playSongLyrics, stepSong, "n",nameSong, performer, lyricsMusic));
+                        previousSongLyrics.setOnClickListener(v -> MusicPlayer.playerMusic(mediaPlayer, adminValuesModels, playSongLyrics, stepSong, "p",nameSong, performer, lyricsMusic));
 
                         shareSongLyrics.setOnClickListener(v -> {
                             Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -332,7 +319,7 @@ public class FirebaseServices {
                             context.startActivity(Intent.createChooser(shareIntent, "Share via"));
                         });
 
-                        likeSongLyrics.setOnClickListener(v->{
+                        likeSongLyrics.setOnClickListener(v -> {
                             FirebaseServices firebaseServices = new FirebaseServices("Нац");
                             if (adminValuesModels.get(stepSong).getLiked()) {
                                 likeSongLyrics.setColorFilter(R.color.green);
@@ -343,7 +330,7 @@ public class FirebaseServices {
                             }
                         });
 
-                        menuSongLyrics.setOnClickListener(v->{
+                        menuSongLyrics.setOnClickListener(v -> {
                             PlayListDialog recomendationAdapter = new PlayListDialog(context, adminValuesModels, stepSong);
                             recomendationAdapter.show();
                         });

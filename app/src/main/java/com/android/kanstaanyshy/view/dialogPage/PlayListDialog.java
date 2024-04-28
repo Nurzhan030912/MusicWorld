@@ -1,13 +1,9 @@
 package com.android.kanstaanyshy.view.dialogPage;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +16,7 @@ import com.android.kanstaanyshy.service.FirebaseServices;
 import java.util.List;
 
 
-public class PlayListDialog extends AlertDialog {
+public class PlayListDialog {
     private Spinner spinner;
     private EditText editText;
     private Button button, button2;
@@ -28,33 +24,33 @@ public class PlayListDialog extends AlertDialog {
     private List<AdminValuesModel> key;
     private int position;
     private InputMethodManager imm;
+    private Context context;
 
     public PlayListDialog(Context context, List<AdminValuesModel> key, int position) {
-        super(context);
+        this.context = context;
         this.key = key;
         this.position = position;
     }
 
-    @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View contentView = inflater.inflate(R.layout.dialog_page_playlist, null);
+    public void show() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Ырлар");
 
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.TOP;
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customLayout = inflater.inflate(R.layout.dialog_page_playlist, null);
+        builder.setView(customLayout);
 
-        imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        spinner = contentView.findViewById(R.id.spinner1);
-        editText = contentView.findViewById(R.id.editTextText);
-        button = contentView.findViewById(R.id.button);
-        button2 = contentView.findViewById(R.id.button2);
+        imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        spinner = customLayout.findViewById(R.id.spinner1);
+        editText = customLayout.findViewById(R.id.editTextText);
+        button = customLayout.findViewById(R.id.button);
+        button2 = customLayout.findViewById(R.id.button2);
+
+        AlertDialog dialog = builder.create();
 
         editText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-//                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
             }
         });
         spinnerShows(editText);
@@ -62,28 +58,27 @@ public class PlayListDialog extends AlertDialog {
         button.setOnClickListener(v -> {
             if (!editText.getText().toString().isEmpty()) {
                 firebaseServices = new FirebaseServices("Нац");
-                firebaseServices.updatePlayList(key.get(position).getKey(), editText.getText().toString(), getContext());
+                firebaseServices.updatePlayList(key.get(position).getKey(), editText.getText().toString(), context);
+                dialog.dismiss();
             }
-            dismiss();
+
         });
 
 
         button2.setOnClickListener(v ->
-
         {
             firebaseServices = new FirebaseServices("Нац");
-            firebaseServices.updatePlayList(key.get(position).getKey(), "", getContext());
-            dismiss();
+            firebaseServices.updatePlayList(key.get(position).getKey(), "", context);
+            dialog.dismiss();
         });
 
-
-        setContentView(contentView);
-
+        dialog.show();
     }
+
 
     private void spinnerShows( EditText editText) {
         firebaseServices = new FirebaseServices("Нац");
-        firebaseServices.readFirebaseSpinner(spinner, getContext(), editText);
+        firebaseServices.readFirebaseSpinner(spinner, context, editText);
     }
 }
 

@@ -41,7 +41,7 @@ public class Likes extends Fragment {
         );
 
         FirebaseServices firebaseServices = new FirebaseServices("Нац");
-        firebaseServices.readFromFirebaseLikes(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, searchMusic);
+        firebaseServices.readFromFirebaseLikes(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, searchMusic, view);
 
 
 

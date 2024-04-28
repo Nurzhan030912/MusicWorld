@@ -1,17 +1,12 @@
 package com.android.kanstaanyshy.view.Adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,12 +29,14 @@ public class RecomendationAdapter extends RecyclerView.Adapter<RecomendationAdap
     private List<AdminValuesModel> content;
     private OnItemRecyclerClickListener mListener;
     private MediaPlayer mediaPlayer;
+    private View view;
 
-    public RecomendationAdapter(Context context, List<AdminValuesModel> content, Fragment fragment, MediaPlayer mediaPlayer) {
+    public RecomendationAdapter(Context context, List<AdminValuesModel> content, Fragment fragment, MediaPlayer mediaPlayer, View view) {
         this.context = context;
         this.fragment = fragment;
         this.content = content;
         this.mediaPlayer = mediaPlayer;
+        this.view = view;
     }
 
     public void setOnItemClickListener(OnItemRecyclerClickListener listener) {

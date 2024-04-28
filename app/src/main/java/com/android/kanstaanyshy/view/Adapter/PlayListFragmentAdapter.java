@@ -29,12 +29,14 @@ public class PlayListFragmentAdapter extends RecyclerView.Adapter<PlayListFragme
 
     private OnItemRecyclerClickListener mListener;
     private MediaPlayer mediaPlayer;
+    private View view;
 
-    public PlayListFragmentAdapter(Context context, List<AdminValuesModel> content, Fragment fragment, MediaPlayer mediaPlayer) {
+    public PlayListFragmentAdapter(Context context, List<AdminValuesModel> content, Fragment fragment, MediaPlayer mediaPlayer, View view) {
         this.context = context;
         this.fragment = fragment;
         this.content = content;
         this.mediaPlayer = mediaPlayer;
+        this.view = view;
     }
 
     public void setOnItemClickListener(OnItemRecyclerClickListener listener) {

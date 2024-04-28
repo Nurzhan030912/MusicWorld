@@ -43,7 +43,7 @@ public class Recomendation extends Fragment {
         );
 
         FirebaseServices firebaseServices = new FirebaseServices("Нац");
-        firebaseServices.readFromFirebaseRecomendation(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, searchMusic);
+        firebaseServices.readFromFirebaseRecomendation(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, searchMusic, view);
 
         return view;
     }

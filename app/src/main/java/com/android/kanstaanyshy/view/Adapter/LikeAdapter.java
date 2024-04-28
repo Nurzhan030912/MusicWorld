@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -30,12 +29,14 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeAdapterVie
     private List<AdminValuesModel> content;
     private OnItemRecyclerClickListener mListener;
     private MediaPlayer mediaPlayer;
+    private View view;
 
-    public LikeAdapter(Context context, List<AdminValuesModel> content, Fragment fragmentб,MediaPlayer mediaPlayer) {
+    public LikeAdapter(Context context, List<AdminValuesModel> content, Fragment fragmentб, MediaPlayer mediaPlayer, View view) {
         this.context = context;
         this.fragment = fragment;
         this.content = content;
         this.mediaPlayer = mediaPlayer;
+        this.view = view;
     }
 
     public void setOnItemClickListener(OnItemRecyclerClickListener listener) {
@@ -94,7 +95,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeAdapterVie
             context.startActivity(Intent.createChooser(shareIntent, "Share via"));
         });
 
-        holder.menuMusicL.setOnClickListener(v->{
+        holder.menuMusicL.setOnClickListener(v -> {
             PlayListDialog recomendationAdapter = new PlayListDialog(context, content, position);
             recomendationAdapter.show();
         });

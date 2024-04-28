@@ -48,7 +48,7 @@ public class PLayListFragment extends Fragment {
             String stringData = args.getString("key");
             if (stringData != null) {
                 FirebaseServices firebaseServices = new FirebaseServices("Нац");
-                firebaseServices.readFromFirebasePlaylist(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, stringData, searchMusic);
+                firebaseServices.readFromFirebasePlaylist(getContext(), recyclerView, requireActivity().getSupportFragmentManager(), mediaPlayer, stringData, searchMusic, view);
             }
         }
 
