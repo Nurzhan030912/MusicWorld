@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.android.kanstaanyshy'
+    namespace 'com.android.nurjan'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.android.kanstaanyshy"
+        applicationId "com.android.nurjan"
         minSdk 24
         targetSdk 34
         versionCode 1

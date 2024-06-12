@@ -1,22 +1,22 @@
 {
   "project_info": {
-    "project_number": "443258952838",
-    "firebase_url": "https://kanstaanysh-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "kanstaanysh",
-    "storage_bucket": "kanstaanysh.appspot.com"
+    "project_number": "367693413951",
+    "firebase_url": "https://diplom-1a651-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "diplom-1a651",
+    "storage_bucket": "diplom-1a651.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443258952838:android:ff269c6e59ec980a8c0507",
+        "mobilesdk_app_id": "1:367693413951:android:6ff505b537d8667c3d028a",
         "android_client_info": {
-          "package_name": "com.android.kanstaanyshy"
+          "package_name": "com.android.nurjan"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDDAGTGHf-RhJ2bD5nEax8XC-0FmeV6BBc"
+          "current_key": "AIzaSyB_mbhZV2C3jQ01lGgV27bXO3j-JeOkl_o"
         }
       ],
       "services": {
